@@ -12,7 +12,8 @@ create or replace procedure hr.POISK_KLIENTA_S_MAX_DOHODOM
 id_client_tb number(20);
 max_dohod_za_god number(20);
 begin
-  Select max(dohod_za_god), id_client into max_dohod_za_god, id_client_tb from dep_dogs_info where id_client = id_client_param group by id_client ;
+  Select max(dohod_za_god), id_client into max_dohod_za_god, id_client_tb from DOGS_INFO_OSTATOK
+ where id_client = id_client_param group by id_client ;
   DBMS_OUTPUT.enable;
   DBMS_OUTPUT.put_line(max_dohod_za_god||' '||id_client_tb );
 end POISK_KLIENTA_S_MAX_DOHODOM;
@@ -34,7 +35,7 @@ dep_Ostatok number(20);
 begin
   Select c.id_client, c.FIO, d.id_chet, d.id_dep_dog, d.ostatok
   INTO ID_clienta, FIO_CLIENTA_into, Id_cheta, id_dog, dep_Ostatok 
-  from CLI c inner join DEP_DOG  d on (c.id_client=d.id_client)
+  from CLI c inner join DOGS_INFO_OSTATOK	d on (c.id_client=d.id_client)
   where FIO = FIO_CLIENTA_parametr;
   DBMS_OUTPUT.enable;
   DBMS_OUTPUT.put_line('DANNYE O KLIENTE I EGO DEP DOGOVORAH   '|| ID_clienta||' '||FIO_CLIENTA_into||' '||Id_cheta ||' ' 
